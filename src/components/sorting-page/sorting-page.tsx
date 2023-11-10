@@ -44,12 +44,13 @@ export const SortingPage: React.FC = () => {
 
   const selectionSort = () => {
     const arrayStates: number[][] = [[...sortingArray]];
+    const length = sortingArray.length;
 
-    for (let i = 0; i < sortingArray.length - 1; i++) {
+    for (let i = 0; i < length - 1; i++) {
       const array = [...arrayStates[i]];
       let minMaxIndex = i;
 
-      for (let j = i + 1; j < sortingArray.length; j++) {
+      for (let j = i + 1; j < length; j++) {
         if (sortingDirection === "ascending" && array[minMaxIndex] > array[j]) {
           minMaxIndex = j;
         }
@@ -70,6 +71,44 @@ export const SortingPage: React.FC = () => {
     return arrayStates;
   };
 
+  const bubbleSort = () => {
+    const arrayStates: number[][] = [[...sortingArray]];
+    const length = sortingArray.length;
+
+    for (let i = 0; i < length; i++) {
+      for (let j = 0; j < length - 1 - i; j++) {
+        const array = [...arrayStates[arrayStates.length - 1]];
+
+        if (sortingDirection === "ascending" && array[j] > array[j + 1]) {
+          const tmp = array[j];
+          array[j] = array[j + 1];
+          array[j + 1] = tmp;
+        }
+        if (sortingDirection === "descending" && array[j] < array[j + 1]) {
+          const tmp = array[j];
+          array[j] = array[j + 1];
+          array[j + 1] = tmp;
+        }
+
+        arrayStates.push(array);
+      }
+    }
+
+    let i = arrayStates.length - 1;
+    while (i > 0) {
+      if (arrayStates[i].toString() === arrayStates[i - 1].toString()) {
+        i--;
+      } else {
+        break;
+      }
+    }
+    if (i !== -1) {
+      return arrayStates.slice(0, i + 2);
+    }
+
+    return arrayStates;
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSorting(true);
@@ -78,17 +117,16 @@ export const SortingPage: React.FC = () => {
 
     if (sortingType === "Selection") {
       const arrayStates = selectionSort();
-
       let i = 0;
-      let length = sortingArray.length;
+      const length = sortingArray.length;
       const done: number[] = [];
 
       setTimeout(function run() {
         setSortingArray(arrayStates[i]);
-        setSortingIndexes([i, i + 1]);
 
         let k = i;
         let j = i + 1;
+
         setTimeout(function innerRun() {
           setSortingIndexes([k, j]);
 
@@ -114,6 +152,51 @@ export const SortingPage: React.FC = () => {
         } else {
           done.push(i + 1);
           setDoneIndexes(done);
+        }
+      }, 0);
+    } else {
+      const arrayStates = bubbleSort();
+      let i = 0;
+      let l = sortingArray.length;
+      const length = sortingArray.length;
+      const done: number[] = [];
+      let c = 0;
+
+      setTimeout(function run() {
+        const k = i;
+        let j = 0;
+
+        setTimeout(function innerRun() {
+          if (!arrayStates[c]) {
+            setDoneIndexes([
+              0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+            ]);
+            setSortingIndexes([-1, 17]);
+            setIsSorting(false);
+            return;
+          }
+          setSortingArray(arrayStates[c]);
+          setSortingIndexes([j, j + 1]);
+
+          if (j < length - 2 - k) {
+            c++;
+            j++;
+            setTimeout(innerRun, SHORT_DELAY_IN_MS);
+          } else {
+            done.push(length - 1 - k);
+            setDoneIndexes(done);
+            if (k === length - 1) {
+              setSortingIndexes([-1, 17]);
+              setIsSorting(false);
+            }
+          }
+        }, 0);
+
+        if (i < length - 1) {
+          c++;
+          i++;
+          l--;
+          setTimeout(run, SHORT_DELAY_IN_MS * l);
         }
       }, 0);
     }

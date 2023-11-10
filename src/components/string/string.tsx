@@ -37,7 +37,7 @@ export const StringComponent: React.FC = () => {
     setReverseArray(arr);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsReversing(true);
     if (inputValue.length === 1) {
@@ -84,7 +84,7 @@ export const StringComponent: React.FC = () => {
 
   return (
     <SolutionLayout title="Строка">
-      <form onSubmit={onSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <Input
           maxLength={11}
           isLimitText={true}

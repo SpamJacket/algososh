@@ -36,7 +36,7 @@ export const StackPage: React.FC = () => {
     }, SHORT_DELAY_IN_MS);
   };
 
-  const handleClear = (e: FormEvent<HTMLFormElement>) => {
+  const handleClear = () => {
     setStack([]);
   };
 

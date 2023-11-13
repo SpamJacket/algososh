@@ -19,7 +19,7 @@
 
 .container {
   display: flex;
-  height: calc(100% - 269px);
+  min-height: 362px;
   justify-content: center;
   align-items: end;
   column-gap: 10px;

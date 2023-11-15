@@ -118,6 +118,7 @@ export const QueuePage: React.FC = () => {
     <SolutionLayout title="Очередь">
       <form className={styles.form} onReset={handleClear} onSubmit={handleAdd}>
         <Input
+          placeholder="Введите значение"
           maxLength={4}
           isLimitText={true}
           required={true}

@@ -1,6 +1,6 @@
 import { TQueue } from "../types/data-structures";
 
-export class Queue<T> implements TQueue<T> {
+export default class Queue<T> implements TQueue<T> {
   private container: T[] = Array(7).fill(undefined);
   private head: number | null = null;
   private tail: number | null = null;

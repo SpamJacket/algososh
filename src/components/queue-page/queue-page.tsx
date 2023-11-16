@@ -4,9 +4,9 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import { ElementStates } from "../../types/element-states";
+import ElementStates from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { Queue } from "../../utils/queue";
+import Queue from "../../utils/queue";
 
 const queue = new Queue<string>();
 

@@ -1,6 +1,6 @@
 import { TStack } from "../types/data-structures";
 
-export class Stack<T> implements TStack<T> {
+export default class Stack<T> implements TStack<T> {
   private container: T[] = [];
   private size: number = 0;
 

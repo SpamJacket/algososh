@@ -9,10 +9,10 @@ class Node<T> {
   }
 }
 
-export class LinkedList<T> implements TLinkedList<T> {
+export default class LinkedList<T> implements TLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
-  size: number = 0;
+  private size: number = 0;
 
   unshift(element: T) {
     const node = new Node(element);
@@ -115,6 +115,10 @@ export class LinkedList<T> implements TLinkedList<T> {
       prev!.next = curr!.next;
       this.size--;
     }
+  }
+
+  getSize() {
+    return this.size;
   }
 
   render() {

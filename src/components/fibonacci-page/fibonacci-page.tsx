@@ -5,6 +5,7 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import getFibonacciArray from "../../utils/fibonacci";
 
 export const FibonacciPage: React.FC = () => {
   const [visualizationArray, setVisualizationArray] = React.useState<number[]>(
@@ -20,27 +21,15 @@ export const FibonacciPage: React.FC = () => {
     setInputValue(value);
   };
 
-  const generateFibonacci = (n: number): number => {
-    if (n === 1 || n === 0) {
-      return 1;
-    }
-
-    return generateFibonacci(n - 1) + generateFibonacci(n - 2);
-  };
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsRun(true);
     setVisualizationArray([]);
-    const array: number[] = [];
-
-    for (let i = 0; i < inputValue! + 1; i++) {
-      array.push(generateFibonacci(i));
-    }
+    const fibonacciArray: number[] = getFibonacciArray(inputValue!);
 
     let i = 0;
     setTimeout(function run() {
-      setVisualizationArray(array.slice(0, i + 1));
+      setVisualizationArray(fibonacciArray.slice(0, i + 1));
 
       if (i < inputValue!) {
         i++;

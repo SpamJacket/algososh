@@ -4,8 +4,9 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import { ElementStates } from "../../types/element-states";
+import ElementStates from "../../types/element-states";
 import { DELAY_IN_MS } from "../../constants/delays";
+import reverseString from "../../utils/string";
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = React.useState("");
@@ -17,19 +18,6 @@ export const StringComponent: React.FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-  };
-
-  const reverseString = () => {
-    const arrayStates: string[][] = [];
-    arrayStates[0] = inputValue.split("");
-    for (let i = 0; i < Math.floor(inputValue.length / 2); i++) {
-      const res = [...arrayStates[i]];
-      const tmp = res[i];
-      res[i] = res[res.length - 1 - i];
-      res[res.length - 1 - i] = tmp;
-      arrayStates[i + 1] = res;
-    }
-    return arrayStates;
   };
 
   const setVisualization = (i: number, arr: string[]) => {
@@ -46,7 +34,7 @@ export const StringComponent: React.FC = () => {
       return;
     }
 
-    const arrayStates = reverseString();
+    const arrayStates = reverseString(inputValue.split(""));
     setVisualization(0, arrayStates[0]);
 
     let i = 1;

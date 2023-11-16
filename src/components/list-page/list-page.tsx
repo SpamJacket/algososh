@@ -5,9 +5,9 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { ArrowIcon } from "../ui/icons/arrow-icon";
-import { ElementStates } from "../../types/element-states";
+import ElementStates from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { LinkedList } from "../../utils/linked-list";
+import LinkedList from "../../utils/linked-list";
 
 const linkedList = new LinkedList<string>();
 
@@ -259,7 +259,7 @@ export const ListPage: React.FC = () => {
             onClick={addHead}
             isLoader={isHeadAdding || isHeadAddingDone}
             disabled={
-              linkedList.size === 8 ||
+              linkedList.getSize() === 8 ||
               !textInputValue.length ||
               isTailAdding ||
               isTailAddingDone ||
@@ -277,7 +277,7 @@ export const ListPage: React.FC = () => {
             onClick={addTail}
             isLoader={isTailAdding || isTailAddingDone}
             disabled={
-              linkedList.size === 8 ||
+              linkedList.getSize() === 8 ||
               !textInputValue.length ||
               isHeadAdding ||
               isHeadAddingDone ||
@@ -295,7 +295,7 @@ export const ListPage: React.FC = () => {
             onClick={deleteHead}
             isLoader={isHeadDeleting}
             disabled={
-              !linkedList.size ||
+              !linkedList.getSize() ||
               isHeadAdding ||
               isHeadAddingDone ||
               isTailAdding ||
@@ -313,7 +313,7 @@ export const ListPage: React.FC = () => {
             onClick={deleteTail}
             isLoader={isTailDeleting}
             disabled={
-              !linkedList.size ||
+              !linkedList.getSize() ||
               isHeadAdding ||
               isHeadAddingDone ||
               isTailAdding ||
@@ -330,7 +330,7 @@ export const ListPage: React.FC = () => {
             placeholder="Введите индекс"
             type="number"
             min={0}
-            max={linkedList.size - 1}
+            max={linkedList.getSize() - 1}
             step={1}
             extraClass={styles.input}
             value={indexInputValue ?? ""}
@@ -354,10 +354,10 @@ export const ListPage: React.FC = () => {
             onClick={addByIndex}
             isLoader={isAdding || isAddingDone}
             disabled={
-              linkedList.size === 8 ||
+              linkedList.getSize() === 8 ||
               !textInputValue.length ||
               indexInputValue === null ||
-              indexInputValue > linkedList.size - 1 ||
+              indexInputValue > linkedList.getSize() - 1 ||
               indexInputValue < 0 ||
               isHeadAdding ||
               isHeadAddingDone ||
@@ -375,9 +375,9 @@ export const ListPage: React.FC = () => {
             onClick={deleteByIndex}
             isLoader={isDeleting}
             disabled={
-              !linkedList.size ||
+              !linkedList.getSize() ||
               indexInputValue === null ||
-              indexInputValue > linkedList.size - 1 ||
+              indexInputValue > linkedList.getSize() - 1 ||
               indexInputValue < 0 ||
               isHeadAdding ||
               isHeadAddingDone ||

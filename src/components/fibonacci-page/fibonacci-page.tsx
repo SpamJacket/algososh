@@ -70,6 +70,7 @@ export const FibonacciPage: React.FC = () => {
           extraClass={styles.input}
           value={inputValue ?? ""}
           onChange={handleChange}
+          disabled={isRun}
         />
         <Button
           text="Рассчитать"

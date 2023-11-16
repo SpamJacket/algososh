@@ -240,6 +240,17 @@ export const ListPage: React.FC = () => {
             extraClass={styles.input}
             value={textInputValue}
             onChange={handleTextChange}
+            disabled={
+              isAdding ||
+              isAddingDone ||
+              isDeleting ||
+              isHeadAdding ||
+              isHeadAddingDone ||
+              isHeadDeleting ||
+              isTailAdding ||
+              isTailAddingDone ||
+              isTailDeleting
+            }
           />
           <Button
             type="button"
@@ -324,6 +335,17 @@ export const ListPage: React.FC = () => {
             extraClass={styles.input}
             value={indexInputValue ?? ""}
             onChange={handleIndexChange}
+            disabled={
+              isAdding ||
+              isAddingDone ||
+              isDeleting ||
+              isHeadAdding ||
+              isHeadAddingDone ||
+              isHeadDeleting ||
+              isTailAdding ||
+              isTailAddingDone ||
+              isTailDeleting
+            }
           />
           <Button
             type="button"

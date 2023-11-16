@@ -92,6 +92,7 @@ export const StringComponent: React.FC = () => {
           extraClass={styles.input}
           value={inputValue}
           onChange={handleChange}
+          disabled={isReversing}
         />
         <Button
           text="Развернуть"

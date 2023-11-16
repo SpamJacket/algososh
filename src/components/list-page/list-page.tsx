@@ -7,7 +7,7 @@ import { Button } from "../ui/button/button";
 import { ArrowIcon } from "../ui/icons/arrow-icon";
 import { ElementStates } from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { Node, LinkedList } from "../../utils/linked-list";
+import { LinkedList } from "../../utils/linked-list";
 
 const linkedList = new LinkedList<string>();
 
@@ -255,7 +255,8 @@ export const ListPage: React.FC = () => {
               isHeadDeleting ||
               isTailDeleting ||
               isAdding ||
-              isAddingDone
+              isAddingDone ||
+              isDeleting
             }
           />
           <Button
@@ -272,7 +273,8 @@ export const ListPage: React.FC = () => {
               isHeadDeleting ||
               isTailDeleting ||
               isAdding ||
-              isAddingDone
+              isAddingDone ||
+              isDeleting
             }
           />
           <Button
@@ -289,7 +291,8 @@ export const ListPage: React.FC = () => {
               isTailAddingDone ||
               isTailDeleting ||
               isAdding ||
-              isAddingDone
+              isAddingDone ||
+              isDeleting
             }
           />
           <Button
@@ -306,7 +309,8 @@ export const ListPage: React.FC = () => {
               isTailAddingDone ||
               isHeadDeleting ||
               isAdding ||
-              isAddingDone
+              isAddingDone ||
+              isDeleting
             }
           />
         </fieldset>
@@ -338,7 +342,8 @@ export const ListPage: React.FC = () => {
               isTailAdding ||
               isTailAddingDone ||
               isHeadDeleting ||
-              isTailDeleting
+              isTailDeleting ||
+              isDeleting
             }
           />
           <Button
@@ -346,6 +351,7 @@ export const ListPage: React.FC = () => {
             text="Удалить по индексу"
             extraClass={styles.indexButton}
             onClick={deleteByIndex}
+            isLoader={isDeleting}
             disabled={
               !linkedList.size ||
               indexInputValue === null ||

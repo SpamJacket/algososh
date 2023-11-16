@@ -6,113 +6,96 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { Queue } from "../../utils/queue";
+
+const queue = new Queue<string>();
 
 export const QueuePage: React.FC = () => {
   const [inputValue, setInputValue] = React.useState("");
-  const [visualizationArray, setVisualizationArray] = React.useState<
-    [string, string, string, string, string, string, string]
-  >(["", "", "", "", "", "", ""]);
-  const [headIndex, setHeadIndex] = React.useState<number | null>(null);
-  const [tailIndex, setTailIndex] = React.useState<number | null>(null);
+  const [visualizationQueue, setVisualizationQueue] = React.useState<string[]>([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
   const [isAdding, setIsAdding] = React.useState(false);
+  const [isAddingDone, setIsAddingDone] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const setStates = (
-    array: [string, string, string, string, string, string, string] = [
-      ...visualizationArray,
-    ],
-    head: number | null = headIndex,
-    tail: number | null = tailIndex
-  ) => {
-    setVisualizationArray(array);
-    setHeadIndex(head);
-    setTailIndex(tail);
+  const reRender = () => {
+    setVisualizationQueue(queue.render());
   };
 
   const handleAdd = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsAdding(true);
-    const array: [string, string, string, string, string, string, string] = [
-      ...visualizationArray,
-    ];
 
     setTimeout(() => {
-      if (headIndex === null) {
-        array[0] = inputValue;
-        setStates(array, 0, 0);
-      } else {
-        if (array[headIndex] === "") {
-          array[headIndex] = inputValue;
-          setStates(array, undefined, headIndex);
-        } else {
-          array[tailIndex! + 1] = inputValue;
-          setStates(array, undefined, tailIndex! + 1);
-        }
-      }
-
-      setInputValue("");
+      queue.enqueue(inputValue);
+      reRender();
+      setIsAddingDone(true);
       setIsAdding(false);
+      setInputValue("");
+      setTimeout(() => setIsAddingDone(false), SHORT_DELAY_IN_MS);
     }, SHORT_DELAY_IN_MS);
   };
 
   const handleDelete = () => {
     setIsDeleting(true);
-    const array: [string, string, string, string, string, string, string] = [
-      ...visualizationArray,
-    ];
 
     setTimeout(() => {
-      array[headIndex!] = "";
-      setVisualizationArray(array);
-
-      if (headIndex === 6 || headIndex === tailIndex) {
-        setTailIndex(null);
-      } else {
-        setHeadIndex(headIndex! + 1);
-      }
-
+      queue.dequeue("");
+      reRender();
       setIsDeleting(false);
     }, SHORT_DELAY_IN_MS);
   };
 
   const handleClear = () => {
-    setStates(["", "", "", "", "", "", ""], null, null);
+    queue.clear();
+    reRender();
   };
 
   const visualization = React.useMemo((): JSX.Element[] => {
-    return visualizationArray.map((el, index) => (
+    return visualizationQueue.map((el, index) => (
       <Circle
         letter={el}
         key={index}
         index={index}
-        head={index === headIndex ? "head" : undefined}
-        tail={index === tailIndex ? "tail" : undefined}
+        head={index === queue.getHead() ? "head" : undefined}
+        tail={index === queue.getTail() ? "tail" : undefined}
         state={
           isAdding
-            ? tailIndex === null
-              ? headIndex === null
+            ? queue.getTail() === null
+              ? queue.getHead() === null
                 ? index === 0
                   ? ElementStates.Changing
                   : ElementStates.Default
-                : index === headIndex
+                : index === queue.getHead()
                 ? ElementStates.Changing
                 : ElementStates.Default
-              : index === tailIndex + 1
+              : index === queue.getTail()! + 1
               ? ElementStates.Changing
               : ElementStates.Default
+            : isAddingDone
+            ? index === queue.getTail()
+              ? ElementStates.Modified
+              : ElementStates.Default
             : isDeleting
-            ? index === headIndex
+            ? index === queue.getHead()
               ? ElementStates.Changing
               : ElementStates.Default
             : ElementStates.Default
         }
       />
     ));
-  }, [visualizationArray, headIndex, tailIndex, isAdding, isDeleting]);
+  }, [visualizationQueue, isAdding, isAddingDone, isDeleting]);
 
   return (
     <SolutionLayout title="Очередь">
@@ -131,7 +114,9 @@ export const QueuePage: React.FC = () => {
           type="submit"
           extraClass={styles.addButton}
           disabled={
-            headIndex === 6 || tailIndex === 6 || inputValue.length === 0
+            queue.getHead() === 6 ||
+            queue.getTail() === 6 ||
+            inputValue.length === 0
           }
         />
         <Button
@@ -139,13 +124,13 @@ export const QueuePage: React.FC = () => {
           type="button"
           extraClass={styles.deleteButton}
           onClick={handleDelete}
-          disabled={tailIndex === null}
+          disabled={queue.getTail() === null}
         />
         <Button
           text="Очистить"
           type="reset"
           extraClass={styles.clearButton}
-          disabled={headIndex === null}
+          disabled={queue.getHead() === null}
         />
       </form>
       <div className={styles.container}>{visualization}</div>

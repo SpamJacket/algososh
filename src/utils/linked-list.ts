@@ -1,4 +1,6 @@
-export class Node<T> {
+import { TLinkedList } from "../types/data-structures";
+
+class Node<T> {
   value: T;
   next: Node<T> | null;
   constructor(value: T, next?: Node<T> | null) {
@@ -7,26 +9,10 @@ export class Node<T> {
   }
 }
 
-interface ILinkedList<T> {
-  unshift: (element: T) => void;
-  push: (element: T) => void;
-  shift: () => void;
-  pop: () => void;
-  appendByIndex: (element: T, index: number) => void;
-  removeByIndex: (index: number) => void;
-  getSize: () => number;
-  render: () => T[];
-}
-
-export class LinkedList<T> implements ILinkedList<T> {
-  private head: Node<T> | null;
-  private tail: Node<T> | null;
-  size: number;
-  constructor() {
-    this.head = null;
-    this.tail = null;
-    this.size = 0;
-  }
+export class LinkedList<T> implements TLinkedList<T> {
+  private head: Node<T> | null = null;
+  private tail: Node<T> | null = null;
+  size: number = 0;
 
   unshift(element: T) {
     const node = new Node(element);
@@ -129,10 +115,6 @@ export class LinkedList<T> implements ILinkedList<T> {
       prev!.next = curr!.next;
       this.size--;
     }
-  }
-
-  getSize() {
-    return this.size;
   }
 
   render() {

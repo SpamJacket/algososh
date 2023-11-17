@@ -77,7 +77,40 @@ export const QueuePage: React.FC = () => {
     reRender();
   };
 
-  const visualization = React.useMemo((): JSX.Element[] => {
+  const getElementState = React.useCallback(
+    (index: number): ElementStates => {
+      if (isAdding) {
+        if (queue.getTail() === null) {
+          if (queue.getHead() === null) {
+            if (index === 0) {
+              return ElementStates.Changing;
+            }
+          } else {
+            if (index === queue.getHead()) {
+              return ElementStates.Changing;
+            }
+          }
+        } else {
+          if (index === queue.getTail()! + 1) {
+            return ElementStates.Changing;
+          }
+        }
+      }
+
+      if (isAddingDone && index === queue.getTail()) {
+        return ElementStates.Modified;
+      }
+
+      if (isDeleting && index === queue.getHead()) {
+        return ElementStates.Changing;
+      }
+
+      return ElementStates.Default;
+    },
+    [isAdding, isAddingDone, isDeleting]
+  );
+
+  const visualization = React.useMemo(() => {
     return visualizationQueue.map((el, index) => (
       <Circle
         letter={el}
@@ -85,32 +118,10 @@ export const QueuePage: React.FC = () => {
         index={index}
         head={index === queue.getHead() ? "head" : undefined}
         tail={index === queue.getTail() ? "tail" : undefined}
-        state={
-          isAdding
-            ? queue.getTail() === null
-              ? queue.getHead() === null
-                ? index === 0
-                  ? ElementStates.Changing
-                  : ElementStates.Default
-                : index === queue.getHead()
-                ? ElementStates.Changing
-                : ElementStates.Default
-              : index === queue.getTail()! + 1
-              ? ElementStates.Changing
-              : ElementStates.Default
-            : isAddingDone
-            ? index === queue.getTail()
-              ? ElementStates.Modified
-              : ElementStates.Default
-            : isDeleting
-            ? index === queue.getHead()
-              ? ElementStates.Changing
-              : ElementStates.Default
-            : ElementStates.Default
-        }
+        state={getElementState(index)}
       />
     ));
-  }, [visualizationQueue, isAdding, isAddingDone, isDeleting]);
+  }, [visualizationQueue, getElementState]);
 
   return (
     <SolutionLayout title="Очередь">

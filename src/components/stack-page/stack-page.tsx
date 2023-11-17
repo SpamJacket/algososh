@@ -62,7 +62,7 @@ export const StackPage: React.FC = () => {
     reRender();
   };
 
-  const visualization = React.useMemo((): JSX.Element[] => {
+  const visualization = React.useMemo(() => {
     return visualizationStack.map((el, index) => (
       <Circle
         letter={el}

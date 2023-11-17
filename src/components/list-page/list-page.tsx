@@ -134,11 +134,11 @@ export const ListPage: React.FC = () => {
           setCheckedIndexes([]);
           setIsAddingDone(true);
           setIsAdding(false);
-          setTextInputValue("");
-          setIndexInputValue(null);
         }
         setTimeout(() => {
           if (_isComponentMounted.current) {
+            setTextInputValue("");
+            setIndexInputValue(null);
             setIsAddingDone(false);
           }
         }, SHORT_DELAY_IN_MS);
@@ -171,7 +171,123 @@ export const ListPage: React.FC = () => {
     }, 0);
   };
 
-  const visualization = React.useMemo((): JSX.Element[] | JSX.Element => {
+  const getLetterState = React.useCallback(
+    (index: number, el: string) => {
+      if (
+        (isHeadDeleting && index === 0) ||
+        (isTailDeleting && index === visualizationList.length - 1) ||
+        (isDeleting &&
+          indexInputValue === index &&
+          checkedIndexes.length - 1 === index)
+      ) {
+        return "";
+      }
+
+      return el;
+    },
+    [
+      isHeadDeleting,
+      isTailDeleting,
+      isDeleting,
+      visualizationList,
+      indexInputValue,
+      checkedIndexes,
+    ]
+  );
+
+  const getHeadState = React.useCallback(
+    (index: number) => {
+      if (
+        (isHeadAdding && index === 0) ||
+        (isTailAdding && index === visualizationList.length - 1) ||
+        (isAdding && index === checkedIndexes.length)
+      ) {
+        return (
+          <Circle
+            letter={textInputValue}
+            isSmall={true}
+            state={ElementStates.Changing}
+          />
+        );
+      }
+
+      if (index === 0) {
+        return "head";
+      }
+
+      return "";
+    },
+    [isHeadAdding, isTailAdding, isAdding, visualizationList, checkedIndexes]
+  );
+
+  const getTailState = React.useCallback(
+    (index: number) => {
+      if (
+        (isHeadDeleting && index === 0) ||
+        (isTailDeleting && index === visualizationList.length - 1) ||
+        (isDeleting &&
+          index === checkedIndexes.length - 1 &&
+          index === indexInputValue)
+      ) {
+        return (
+          <Circle
+            letter={
+              isHeadDeleting
+                ? visualizationList[0]
+                : isTailDeleting
+                ? visualizationList[visualizationList.length - 1]
+                : isDeleting
+                ? visualizationList[index]
+                : ""
+            }
+            isSmall={true}
+            state={ElementStates.Changing}
+          />
+        );
+      }
+
+      if (index === visualizationList.length - 1) {
+        return "tail";
+      }
+
+      return "";
+    },
+    [
+      isHeadDeleting,
+      isTailDeleting,
+      isDeleting,
+      visualizationList,
+      checkedIndexes,
+      indexInputValue,
+    ]
+  );
+
+  const getElementState = React.useCallback(
+    (index: number): ElementStates => {
+      if ((isAdding || isDeleting) && checkedIndexes.includes(index)) {
+        return ElementStates.Changing;
+      } else if (isHeadAddingDone && index === 0) {
+        return ElementStates.Modified;
+      } else if (isTailAddingDone && index === visualizationList.length - 1) {
+        return ElementStates.Modified;
+      } else if (isAddingDone && index === indexInputValue) {
+        return ElementStates.Modified;
+      }
+      return ElementStates.Default;
+    },
+    [
+      isAdding,
+      isDeleting,
+      isHeadAddingDone,
+      isTailAddingDone,
+      isAddingDone,
+      checkedIndexes,
+      visualizationList,
+      indexInputValue,
+    ]
+  );
+
+  const visualization = React.useMemo(() => {
     if (
       !visualizationList.length &&
       (isHeadAdding || isTailAdding || isAdding)
@@ -188,65 +304,11 @@ export const ListPage: React.FC = () => {
     return visualizationList.map((el, index) => (
       <Fragment key={index}>
         <Circle
-          letter={
-            (isHeadDeleting && index === 0) ||
-            (isTailDeleting && index === visualizationList.length - 1) ||
-            (isDeleting &&
-              indexInputValue === index &&
-              checkedIndexes.length - 1 === index)
-              ? ""
-              : el
-          }
+          letter={getLetterState(index, el)}
           index={index}
-          head={
-            (isHeadAdding && index === 0) ||
-            (isTailAdding && index === visualizationList.length - 1) ||
-            (isAdding && index === checkedIndexes.length) ? (
-              <Circle
-                letter={textInputValue}
-                isSmall={true}
-                state={ElementStates.Changing}
-              />
-            ) : index === 0 ? (
-              "head"
-            ) : (
-              ""
-            )
-          }
-          tail={
-            (isHeadDeleting && index === 0) ||
-            (isTailDeleting && index === visualizationList.length - 1) ||
-            (isDeleting &&
-              index === checkedIndexes.length - 1 &&
-              index === indexInputValue) ? (
-              <Circle
-                letter={
-                  isHeadDeleting
-                    ? visualizationList[0]
-                    : isTailDeleting
-                    ? visualizationList[visualizationList.length - 1]
-                    : isDeleting
-                    ? visualizationList[index]
-                    : ""
-                }
-                isSmall={true}
-                state={ElementStates.Changing}
-              />
-            ) : index === visualizationList.length - 1 ? (
-              "tail"
-            ) : (
-              ""
-            )
-          }
-          state={
-            (isAdding || isDeleting) && checkedIndexes.includes(index)
-              ? ElementStates.Changing
-              : (isHeadAddingDone && index === 0) ||
-                (isTailAddingDone && index === visualizationList.length - 1) ||
-                (isAddingDone && index === indexInputValue)
-              ? ElementStates.Modified
-              : ElementStates.Default
-          }
+          head={getHeadState(index)}
+          tail={getTailState(index)}
+          state={getElementState(index)}
         />
         {index !== visualizationList.length - 1 && <ArrowIcon />}
       </Fragment>
@@ -254,15 +316,45 @@ export const ListPage: React.FC = () => {
   }, [
     visualizationList,
     isHeadAdding,
-    isHeadAddingDone,
     isTailAdding,
-    isTailAddingDone,
-    isHeadDeleting,
-    isTailDeleting,
     isAdding,
-    isAddingDone,
-    checkedIndexes,
+    getLetterState,
+    getHeadState,
+    getTailState,
+    getElementState,
   ]);
+
+  const isInputDisabled =
+    isAdding ||
+    isAddingDone ||
+    isDeleting ||
+    isHeadAdding ||
+    isHeadAddingDone ||
+    isHeadDeleting ||
+    isTailAdding ||
+    isTailAddingDone ||
+    isTailDeleting;
+
+  const isButtonDisabled =
+    isHeadAdding ||
+    isHeadAddingDone ||
+    isTailAdding ||
+    isTailAddingDone ||
+    isAdding ||
+    isAddingDone ||
+    isHeadDeleting ||
+    isTailDeleting ||
+    isDeleting;
+
+  const isUnBorderButtonDisabled =
+    indexInputValue === null ||
+    indexInputValue > linkedList.getSize() - 1 ||
+    indexInputValue < 0;
+
+  const isAddButtonDisabled =
+    linkedList.getSize() === 8 || !textInputValue.length;
+
+  const isDeleteButtonDisabled = !linkedList.getSize();
 
   return (
     <SolutionLayout title="Связный список">
@@ -275,17 +367,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.input}
             value={textInputValue}
             onChange={handleTextChange}
-            disabled={
-              isAdding ||
-              isAddingDone ||
-              isDeleting ||
-              isHeadAdding ||
-              isHeadAddingDone ||
-              isHeadDeleting ||
-              isTailAdding ||
-              isTailAddingDone ||
-              isTailDeleting
-            }
+            disabled={isInputDisabled}
           />
           <Button
             type="button"
@@ -293,17 +375,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.boundaryButton}
             onClick={addHead}
             isLoader={isHeadAdding || isHeadAddingDone}
-            disabled={
-              linkedList.getSize() === 8 ||
-              !textInputValue.length ||
-              isTailAdding ||
-              isTailAddingDone ||
-              isHeadDeleting ||
-              isTailDeleting ||
-              isAdding ||
-              isAddingDone ||
-              isDeleting
-            }
+            disabled={isButtonDisabled || isAddButtonDisabled}
           />
           <Button
             type="button"
@@ -311,17 +383,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.boundaryButton}
             onClick={addTail}
             isLoader={isTailAdding || isTailAddingDone}
-            disabled={
-              linkedList.getSize() === 8 ||
-              !textInputValue.length ||
-              isHeadAdding ||
-              isHeadAddingDone ||
-              isHeadDeleting ||
-              isTailDeleting ||
-              isAdding ||
-              isAddingDone ||
-              isDeleting
-            }
+            disabled={isButtonDisabled || isAddButtonDisabled}
           />
           <Button
             type="button"
@@ -329,17 +391,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.boundaryButton}
             onClick={deleteHead}
             isLoader={isHeadDeleting}
-            disabled={
-              !linkedList.getSize() ||
-              isHeadAdding ||
-              isHeadAddingDone ||
-              isTailAdding ||
-              isTailAddingDone ||
-              isTailDeleting ||
-              isAdding ||
-              isAddingDone ||
-              isDeleting
-            }
+            disabled={isButtonDisabled || isDeleteButtonDisabled}
           />
           <Button
             type="button"
@@ -347,17 +399,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.boundaryButton}
             onClick={deleteTail}
             isLoader={isTailDeleting}
-            disabled={
-              !linkedList.getSize() ||
-              isHeadAdding ||
-              isHeadAddingDone ||
-              isTailAdding ||
-              isTailAddingDone ||
-              isHeadDeleting ||
-              isAdding ||
-              isAddingDone ||
-              isDeleting
-            }
+            disabled={isButtonDisabled || isDeleteButtonDisabled}
           />
         </fieldset>
         <fieldset className={styles.fieldset}>
@@ -370,17 +412,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.input}
             value={indexInputValue ?? ""}
             onChange={handleIndexChange}
-            disabled={
-              isAdding ||
-              isAddingDone ||
-              isDeleting ||
-              isHeadAdding ||
-              isHeadAddingDone ||
-              isHeadDeleting ||
-              isTailAdding ||
-              isTailAddingDone ||
-              isTailDeleting
-            }
+            disabled={isInputDisabled}
           />
           <Button
             type="button"
@@ -389,18 +421,9 @@ export const ListPage: React.FC = () => {
             onClick={addByIndex}
             isLoader={isAdding || isAddingDone}
             disabled={
-              linkedList.getSize() === 8 ||
-              !textInputValue.length ||
-              indexInputValue === null ||
-              indexInputValue > linkedList.getSize() - 1 ||
-              indexInputValue < 0 ||
-              isHeadAdding ||
-              isHeadAddingDone ||
-              isTailAdding ||
-              isTailAddingDone ||
-              isHeadDeleting ||
-              isTailDeleting ||
-              isDeleting
+              isButtonDisabled ||
+              isAddButtonDisabled ||
+              isUnBorderButtonDisabled
             }
           />
           <Button
@@ -410,18 +433,9 @@ export const ListPage: React.FC = () => {
             onClick={deleteByIndex}
             isLoader={isDeleting}
             disabled={
-              !linkedList.getSize() ||
-              indexInputValue === null ||
-              indexInputValue > linkedList.getSize() - 1 ||
-              indexInputValue < 0 ||
-              isHeadAdding ||
-              isHeadAddingDone ||
-              isTailAdding ||
-              isTailAddingDone ||
-              isHeadDeleting ||
-              isTailDeleting ||
-              isAdding ||
-              isAddingDone
+              isButtonDisabled ||
+              isDeleteButtonDisabled ||
+              isUnBorderButtonDisabled
             }
           />
         </fieldset>

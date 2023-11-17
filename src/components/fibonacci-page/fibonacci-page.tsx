@@ -51,7 +51,7 @@ export const FibonacciPage: React.FC = () => {
     }, SHORT_DELAY_IN_MS);
   };
 
-  const visualization = React.useMemo((): JSX.Element[] => {
+  const visualization = React.useMemo(() => {
     return visualizationArray.map((number, index) => (
       <Circle key={index} letter={number.toString()} index={index} />
     ));

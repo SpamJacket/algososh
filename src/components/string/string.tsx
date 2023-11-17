@@ -67,21 +67,23 @@ export const StringComponent: React.FC = () => {
     }, DELAY_IN_MS);
   };
 
-  const visualization = React.useMemo((): JSX.Element[] => {
+  const getLetterState = React.useCallback(
+    (index: number): ElementStates => {
+      if (sortingIndexes.includes(index)) {
+        return ElementStates.Changing;
+      } else if (index > sortingIndexes[1] || index < sortingIndexes[0]) {
+        return ElementStates.Modified;
+      }
+      return ElementStates.Default;
+    },
+    [sortingIndexes]
+  );
+
+  const visualization = React.useMemo(() => {
     return reverseArray.map((symbol, index) => (
-      <Circle
-        key={index}
-        letter={symbol}
-        state={
-          sortingIndexes.includes(index)
-            ? ElementStates.Changing
-            : index > sortingIndexes[1] || index < sortingIndexes[0]
-            ? ElementStates.Modified
-            : ElementStates.Default
-        }
-      />
+      <Circle key={index} letter={symbol} state={getLetterState(index)} />
     ));
-  }, [reverseArray, sortingIndexes]);
+  }, [reverseArray, getLetterState]);
 
   return (
     <SolutionLayout title="Строка">

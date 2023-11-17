@@ -166,21 +166,23 @@ export const SortingPage: React.FC = () => {
     }
   };
 
-  const visualization = React.useMemo((): JSX.Element[] => {
+  const getElementState = React.useCallback(
+    (index: number): ElementStates => {
+      if (sortingIndexes.includes(index)) {
+        return ElementStates.Changing;
+      } else if (doneIndexes.includes(index)) {
+        return ElementStates.Modified;
+      }
+      return ElementStates.Default;
+    },
+    [sortingIndexes, doneIndexes]
+  );
+
+  const visualization = React.useMemo(() => {
     return sortingArray.map((el, index) => (
-      <Column
-        key={index}
-        index={el}
-        state={
-          sortingIndexes.includes(index)
-            ? ElementStates.Changing
-            : doneIndexes.includes(index)
-            ? ElementStates.Modified
-            : ElementStates.Default
-        }
-      />
+      <Column key={index} index={el} state={getElementState(index)} />
     ));
-  }, [sortingArray, sortingIndexes, doneIndexes]);
+  }, [sortingArray, getElementState]);
 
   return (
     <SolutionLayout title="Сортировка массива">

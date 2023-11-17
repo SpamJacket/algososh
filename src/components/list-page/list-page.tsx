@@ -12,6 +12,7 @@ import LinkedList from "../../utils/linked-list";
 const linkedList = new LinkedList<string>();
 
 export const ListPage: React.FC = () => {
+  const _isComponentMounted = React.useRef(true);
   const [textInputValue, setTextInputValue] = React.useState("");
   const [indexInputValue, setIndexInputValue] = React.useState<number | null>(
     null
@@ -29,6 +30,12 @@ export const ListPage: React.FC = () => {
   const [isAddingDone, setIsAddingDone] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [checkedIndexes, setCheckedIndexes] = React.useState<number[]>([]);
+
+  React.useEffect(() => {
+    return () => {
+      _isComponentMounted.current = false;
+    };
+  }, []);
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTextInputValue(e.target.value);
@@ -50,11 +57,17 @@ export const ListPage: React.FC = () => {
     linkedList.unshift(textInputValue);
 
     setTimeout(() => {
-      render();
-      setIsHeadAddingDone(true);
-      setIsHeadAdding(false);
-      setTextInputValue("");
-      setTimeout(() => setIsHeadAddingDone(false), SHORT_DELAY_IN_MS);
+      if (_isComponentMounted.current) {
+        render();
+        setIsHeadAddingDone(true);
+        setIsHeadAdding(false);
+        setTextInputValue("");
+      }
+      setTimeout(() => {
+        if (_isComponentMounted.current) {
+          setIsHeadAddingDone(false);
+        }
+      }, SHORT_DELAY_IN_MS);
     }, SHORT_DELAY_IN_MS);
   };
 
@@ -63,11 +76,17 @@ export const ListPage: React.FC = () => {
     linkedList.push(textInputValue);
 
     setTimeout(() => {
-      render();
-      setIsTailAddingDone(true);
-      setIsTailAdding(false);
-      setTextInputValue("");
-      setTimeout(() => setIsTailAddingDone(false), SHORT_DELAY_IN_MS);
+      if (_isComponentMounted.current) {
+        render();
+        setIsTailAddingDone(true);
+        setIsTailAdding(false);
+        setTextInputValue("");
+      }
+      setTimeout(() => {
+        if (_isComponentMounted.current) {
+          setIsTailAddingDone(false);
+        }
+      }, SHORT_DELAY_IN_MS);
     }, SHORT_DELAY_IN_MS);
   };
 
@@ -76,8 +95,10 @@ export const ListPage: React.FC = () => {
     linkedList.shift();
 
     setTimeout(() => {
-      render();
-      setIsHeadDeleting(false);
+      if (_isComponentMounted.current) {
+        render();
+        setIsHeadDeleting(false);
+      }
     }, SHORT_DELAY_IN_MS);
   };
 
@@ -86,8 +107,10 @@ export const ListPage: React.FC = () => {
     linkedList.pop();
 
     setTimeout(() => {
-      render();
-      setIsTailDeleting(false);
+      if (_isComponentMounted.current) {
+        render();
+        setIsTailDeleting(false);
+      }
     }, SHORT_DELAY_IN_MS);
   };
 
@@ -100,17 +123,25 @@ export const ListPage: React.FC = () => {
     setTimeout(function run() {
       if (i !== indexInputValue) {
         checkedI = [...checkedI, i];
-        setCheckedIndexes(checkedI);
+        if (_isComponentMounted.current) {
+          setCheckedIndexes(checkedI);
+        }
         i++;
         setTimeout(run, SHORT_DELAY_IN_MS);
       } else {
-        render();
-        setCheckedIndexes([]);
-        setIsAddingDone(true);
-        setIsAdding(false);
-        setTextInputValue("");
-        setIndexInputValue(null);
-        setTimeout(() => setIsAddingDone(false), SHORT_DELAY_IN_MS);
+        if (_isComponentMounted.current) {
+          render();
+          setCheckedIndexes([]);
+          setIsAddingDone(true);
+          setIsAdding(false);
+          setTextInputValue("");
+          setIndexInputValue(null);
+        }
+        setTimeout(() => {
+          if (_isComponentMounted.current) {
+            setIsAddingDone(false);
+          }
+        }, SHORT_DELAY_IN_MS);
       }
     }, SHORT_DELAY_IN_MS);
   };
@@ -124,14 +155,18 @@ export const ListPage: React.FC = () => {
     setTimeout(function run() {
       if (i !== indexInputValue! + 1) {
         checkedI = [...checkedI, i];
-        setCheckedIndexes(checkedI);
+        if (_isComponentMounted.current) {
+          setCheckedIndexes(checkedI);
+        }
         i++;
         setTimeout(run, SHORT_DELAY_IN_MS);
       } else {
-        render();
-        setCheckedIndexes([]);
-        setIsDeleting(false);
-        setIndexInputValue(null);
+        if (_isComponentMounted.current) {
+          render();
+          setCheckedIndexes([]);
+          setIsDeleting(false);
+          setIndexInputValue(null);
+        }
       }
     }, 0);
   };

@@ -11,6 +11,7 @@ import Queue from "../../utils/queue";
 const queue = new Queue<string>();
 
 export const QueuePage: React.FC = () => {
+  const _isComponentMounted = React.useRef(true);
   const [inputValue, setInputValue] = React.useState("");
   const [visualizationQueue, setVisualizationQueue] = React.useState<string[]>([
     "",
@@ -24,6 +25,12 @@ export const QueuePage: React.FC = () => {
   const [isAdding, setIsAdding] = React.useState(false);
   const [isAddingDone, setIsAddingDone] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
+
+  React.useEffect(() => {
+    return () => {
+      _isComponentMounted.current = false;
+    };
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -39,11 +46,17 @@ export const QueuePage: React.FC = () => {
 
     setTimeout(() => {
       queue.enqueue(inputValue);
-      reRender();
-      setIsAddingDone(true);
-      setIsAdding(false);
-      setInputValue("");
-      setTimeout(() => setIsAddingDone(false), SHORT_DELAY_IN_MS);
+      if (_isComponentMounted.current) {
+        reRender();
+        setIsAddingDone(true);
+        setIsAdding(false);
+        setInputValue("");
+      }
+      setTimeout(() => {
+        if (_isComponentMounted.current) {
+          setIsAddingDone(false);
+        }
+      }, SHORT_DELAY_IN_MS);
     }, SHORT_DELAY_IN_MS);
   };
 
@@ -52,8 +65,10 @@ export const QueuePage: React.FC = () => {
 
     setTimeout(() => {
       queue.dequeue("");
-      reRender();
-      setIsDeleting(false);
+      if (_isComponentMounted.current) {
+        reRender();
+        setIsDeleting(false);
+      }
     }, SHORT_DELAY_IN_MS);
   };
 

@@ -11,12 +11,19 @@ import Stack from "../../utils/stack";
 const stack = new Stack<string>();
 
 export const StackPage: React.FC = () => {
+  const _isComponentMounted = React.useRef(true);
   const [inputValue, setInputValue] = React.useState("");
   const [visualizationStack, setVisualizationStack] = React.useState<string[]>(
     []
   );
   const [isAdding, setIsAdding] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
+
+  React.useEffect(() => {
+    return () => {
+      _isComponentMounted.current = false;
+    };
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -32,15 +39,21 @@ export const StackPage: React.FC = () => {
     stack.push(inputValue);
     reRender();
     setInputValue("");
-    setTimeout(() => setIsAdding(false), SHORT_DELAY_IN_MS);
+    setTimeout(() => {
+      if (_isComponentMounted.current) {
+        setIsAdding(false);
+      }
+    }, SHORT_DELAY_IN_MS);
   };
 
   const handleDelete = () => {
     setIsDeleting(true);
     setTimeout(() => {
       stack.pop();
-      reRender();
-      setIsDeleting(false);
+      if (_isComponentMounted.current) {
+        reRender();
+        setIsDeleting(false);
+      }
     }, SHORT_DELAY_IN_MS);
   };
 

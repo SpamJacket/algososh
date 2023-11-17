@@ -11,6 +11,7 @@ import Sorting from "../../types/sorting";
 import { selectionSort, bubbleSort } from "../../utils/sorting";
 
 export const SortingPage: React.FC = () => {
+  const _isComponentMounted = React.useRef(true);
   const [sortingArray, setSortingArray] = React.useState<number[]>([]);
   const [sortingType, setSortingType] = React.useState<Sorting>(
     Sorting.Selection
@@ -23,6 +24,12 @@ export const SortingPage: React.FC = () => {
   ]);
   const [doneIndexes, setDoneIndexes] = React.useState<number[]>([]);
   const [isSorting, setIsSorting] = React.useState(false);
+
+  React.useEffect(() => {
+    return () => {
+      _isComponentMounted.current = false;
+    };
+  }, []);
 
   const handleSortingDirection = (
     e: MouseEvent<HTMLButtonElement | HTMLParagraphElement | HTMLOrSVGElement>
@@ -61,25 +68,33 @@ export const SortingPage: React.FC = () => {
       const done: number[] = [];
 
       setTimeout(function run() {
-        setSortingArray(arrayStates[i]);
+        if (_isComponentMounted.current) {
+          setSortingArray(arrayStates[i]);
+        }
 
         let k = i;
         let j = i + 1;
 
         setTimeout(function innerRun() {
-          setSortingIndexes([k, j]);
+          if (_isComponentMounted.current) {
+            setSortingIndexes([k, j]);
+          }
 
           if (j < length - 1) {
             j++;
             setTimeout(innerRun, SHORT_DELAY_IN_MS);
           } else {
             done.push(k);
-            setDoneIndexes(done);
+            if (_isComponentMounted.current) {
+              setDoneIndexes(done);
+            }
             if (k === length - 2) {
               setTimeout(() => {
-                setSortingArray(arrayStates[arrayStates.length - 1]);
-                setSortingIndexes([-1, 17]);
-                setIsSorting(false);
+                if (_isComponentMounted.current) {
+                  setSortingArray(arrayStates[arrayStates.length - 1]);
+                  setSortingIndexes([-1, 17]);
+                  setIsSorting(false);
+                }
               }, 0);
             }
           }
@@ -90,7 +105,9 @@ export const SortingPage: React.FC = () => {
           setTimeout(run, SHORT_DELAY_IN_MS * (length - i));
         } else {
           done.push(i + 1);
-          setDoneIndexes(done);
+          if (_isComponentMounted.current) {
+            setDoneIndexes(done);
+          }
         }
       }, 0);
     } else {
@@ -107,15 +124,19 @@ export const SortingPage: React.FC = () => {
 
         setTimeout(function innerRun() {
           if (!arrayStates[c]) {
-            setDoneIndexes([
-              0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-            ]);
-            setSortingIndexes([-1, 17]);
-            setIsSorting(false);
+            if (_isComponentMounted.current) {
+              setDoneIndexes([
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+              ]);
+              setSortingIndexes([-1, 17]);
+              setIsSorting(false);
+            }
             return;
           }
-          setSortingArray(arrayStates[c]);
-          setSortingIndexes([j, j + 1]);
+          if (_isComponentMounted.current) {
+            setSortingArray(arrayStates[c]);
+            setSortingIndexes([j, j + 1]);
+          }
 
           if (j < length - 2 - k) {
             c++;
@@ -123,10 +144,14 @@ export const SortingPage: React.FC = () => {
             setTimeout(innerRun, SHORT_DELAY_IN_MS);
           } else {
             done.push(length - 1 - k);
-            setDoneIndexes(done);
+            if (_isComponentMounted.current) {
+              setDoneIndexes(done);
+            }
             if (k === length - 1) {
-              setSortingIndexes([-1, 17]);
-              setIsSorting(false);
+              if (_isComponentMounted.current) {
+                setSortingIndexes([-1, 17]);
+                setIsSorting(false);
+              }
             }
           }
         }, 0);

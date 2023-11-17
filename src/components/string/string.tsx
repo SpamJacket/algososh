@@ -9,12 +9,19 @@ import { DELAY_IN_MS } from "../../constants/delays";
 import reverseString from "../../utils/string";
 
 export const StringComponent: React.FC = () => {
+  const _isComponentMounted = React.useRef(true);
   const [inputValue, setInputValue] = React.useState("");
   const [reverseArray, setReverseArray] = React.useState<string[]>([]);
   const [sortingIndexes, setSortingIndexes] = React.useState<[number, number]>([
     -1, 12,
   ]);
   const [isReversing, setIsReversing] = React.useState(false);
+
+  React.useEffect(() => {
+    return () => {
+      _isComponentMounted.current = false;
+    };
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -40,16 +47,22 @@ export const StringComponent: React.FC = () => {
     let i = 1;
     setTimeout(function run() {
       if (i === Math.floor(inputValue.length / 2)) {
-        setVisualization(12, arrayStates[i]);
+        if (_isComponentMounted.current) {
+          setVisualization(12, arrayStates[i]);
+        }
       } else {
-        setVisualization(i, arrayStates[i]);
+        if (_isComponentMounted.current) {
+          setVisualization(i, arrayStates[i]);
+        }
       }
 
       if (i < Math.floor(inputValue.length / 2)) {
         i++;
         setTimeout(run, DELAY_IN_MS);
       } else {
-        setIsReversing(false);
+        if (_isComponentMounted.current) {
+          setIsReversing(false);
+        }
       }
     }, DELAY_IN_MS);
   };

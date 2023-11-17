@@ -8,11 +8,18 @@ import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import getFibonacciArray from "../../utils/fibonacci";
 
 export const FibonacciPage: React.FC = () => {
+  const _isComponentMounted = React.useRef(true);
   const [visualizationArray, setVisualizationArray] = React.useState<number[]>(
     []
   );
   const [inputValue, setInputValue] = React.useState<number | null>(null);
   const [isRun, setIsRun] = React.useState(false);
+
+  React.useEffect(() => {
+    return () => {
+      _isComponentMounted.current = false;
+    };
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = !Number.isNaN(e.target.valueAsNumber)
@@ -29,13 +36,17 @@ export const FibonacciPage: React.FC = () => {
 
     let i = 0;
     setTimeout(function run() {
-      setVisualizationArray(fibonacciArray.slice(0, i + 1));
+      if (_isComponentMounted.current) {
+        setVisualizationArray(fibonacciArray.slice(0, i + 1));
+      }
 
       if (i < inputValue!) {
         i++;
         setTimeout(run, SHORT_DELAY_IN_MS);
       } else {
-        setIsRun(false);
+        if (_isComponentMounted.current) {
+          setIsRun(false);
+        }
       }
     }, SHORT_DELAY_IN_MS);
   };

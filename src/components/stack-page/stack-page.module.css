@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+  justify-content: center;
+  column-gap: 12px;
+  margin-bottom: 52px;
+}
+
+.input {
+  max-width: 377px;
+}
+
+.addButton {
+  min-width: 121px;
+}
+
+.deleteButton {
+  min-width: 108px;
+}
+
+.clearButton {
+  margin-left: 68px;
+  min-width: 119px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 84px;
+  column-gap: 16px;
+  margin: 0 auto;
+  max-width: 944px;
+}

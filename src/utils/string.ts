@@ -1,8 +1,4 @@
 const reverseString = (sourceArray: string[]): string[][] => {
-  if (!sourceArray.length) {
-    return [];
-  }
-
   const arrayStates: string[][] = [sourceArray];
   for (let i = 0; i < Math.floor(sourceArray.length / 2); i++) {
     const res = [...arrayStates[i]];

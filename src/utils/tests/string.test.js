@@ -32,6 +32,6 @@ describe("Алгоритм разворота", () => {
   it("Алгоритм работает верно с пустой строкой", () => {
     const sourceString = "";
     const reverseRes = reverseString(sourceString.split(""));
-    expect(reverseRes).toEqual([]);
+    expect(reverseRes).toEqual([[]]);
   });
 });

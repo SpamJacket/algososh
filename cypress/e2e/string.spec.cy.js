@@ -5,14 +5,14 @@ describe("Строка", () => {
 
   it("Кнопка недоступна при пустом поле", () => {
     cy.get("input").clear();
-    cy.get("button").last().should("be.disabled");
+    cy.contains("Развернуть").should("be.disabled");
   });
 
   it("Строка разворачивается и визуализируется правильно", () => {
     cy.get("input").type("12345");
     cy.get("button").last().as("button");
 
-    cy.get("@button").should(($button) => {
+    cy.get("@button").then(($button) => {
       $button.click();
       expect($button.attr("class")).to.match(/button_loader/);
       expect($button).to.be.disabled;

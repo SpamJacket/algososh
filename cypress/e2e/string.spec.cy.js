@@ -5,18 +5,21 @@ describe("Строка", () => {
 
   it("Кнопка недоступна при пустом поле", () => {
     cy.get("input").clear();
-    cy.get("button").should("be.disabled");
+    cy.get("button").last().should("be.disabled");
   });
 
   it("Строка разворачивается и визуализируется правильно", () => {
     cy.get("input").type("12345");
     cy.get("button").last().as("button");
+
     cy.get("@button").should(($button) => {
       $button.click();
       expect($button.attr("class")).to.match(/button_loader/);
       expect($button).to.be.disabled;
     });
+
     cy.get("[class^=circle_circle]").as("circles");
+
     cy.get("@circles").should(($circles) => {
       expect($circles.eq(0)).to.have.text("1");
       expect($circles.eq(0).attr("class")).to.match(/changing/);
@@ -55,6 +58,7 @@ describe("Строка", () => {
       expect($circles.eq(4)).to.have.text("1");
       expect($circles.eq(4).attr("class")).to.match(/modified/);
     });
+
     cy.get("@button").should(($button) => {
       expect($button.attr("class")).to.not.match(/button_loader/);
       expect($button).to.be.not.disabled;

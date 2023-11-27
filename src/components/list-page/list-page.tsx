@@ -10,6 +10,10 @@ import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import LinkedList from "../../utils/linked-list";
 
 const linkedList = new LinkedList<string>();
+linkedList.push("8");
+linkedList.push("34");
+linkedList.push("0");
+linkedList.push("15");
 
 export const ListPage: React.FC = () => {
   const _isComponentMounted = React.useRef(true);
@@ -51,6 +55,10 @@ export const ListPage: React.FC = () => {
   const render = () => {
     setVisualizationList(linkedList.render());
   };
+
+  React.useEffect(() => {
+    render();
+  }, []);
 
   const addHead = () => {
     setIsHeadAdding(true);

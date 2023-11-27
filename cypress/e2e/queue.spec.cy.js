@@ -9,7 +9,7 @@ describe("Очередь", () => {
   });
 
   it("Кнопки удаления и очистки недоступны при пустой очереди", () => {
-    cy.contains("head").should("not.exist");
+    cy.get("[class^=circle_letter]").should("have.length", 0);
     cy.contains("Удалить").should("be.disabled");
     cy.contains("Очистить").should("be.disabled");
   });

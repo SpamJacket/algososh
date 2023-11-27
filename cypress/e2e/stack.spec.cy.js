@@ -9,9 +9,7 @@ describe("Стек", () => {
   });
 
   it("Кнопка удаления и очистки недоступна при пустом стеке", () => {
-    cy.get("[class^=solution-layout]")
-      .find("[class^=circle]")
-      .should("have.length", 0);
+    cy.get("[class^=circle]").should("have.length", 0);
     cy.contains("Удалить").should("be.disabled");
     cy.contains("Очистить").should("be.disabled");
   });
@@ -94,8 +92,6 @@ describe("Стек", () => {
     cy.get("@addButton").click();
     cy.wait(500);
     cy.contains("Очистить").click();
-    cy.get("[class^=solution-layout]")
-      .find("[class^=circle]")
-      .should("have.length", 0);
+    cy.get("[class^=circle]").should("have.length", 0);
   });
 });

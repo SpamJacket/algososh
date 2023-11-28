@@ -2,257 +2,257 @@
 
 exports[`Рендеринг круга Круг c буквами рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     >
       Тест
     </p>
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг без букв рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг в состоянии changing рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   changing"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг в состоянии default рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг в состоянии modified рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   modified"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг с head рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head string"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   >
     head
   </div>
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг с index рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   >
     0
   </p>
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail60 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг с react-элементом в head рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   >
     <div
-      className="content "
+      className="undefined "
     >
       <div
-        className="text text_type_input text_color_input mb-4 absolute head element"
+        className="text text_type_input text_color_input mb-4 undefined undefined undefined"
       />
       <div
-        className="circle  small default"
+        className="undefined undefined undefined"
       >
         <p
-          className="text text_type_circle text_color_input letter"
+          className="text text_type_circle text_color_input undefined"
         >
           Тест
         </p>
       </div>
       <p
-        className="text text_type_input text_color_input mt-4 absolute index"
+        className="text text_type_input text_color_input mt-4 undefined undefined"
       />
       <div
-        className="text text_type_input text_color_input mt-4 absolute tail30 element"
+        className="text text_type_input text_color_input mt-4 undefined undefined undefined"
       />
     </div>
   </div>
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;
 
 exports[`Рендеринг круга Круг с react-элементом в tai рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   >
     <div
-      className="content "
+      className="undefined "
     >
       <div
-        className="text text_type_input text_color_input mb-4 absolute head element"
+        className="text text_type_input text_color_input mb-4 undefined undefined undefined"
       />
       <div
-        className="circle  small default"
+        className="undefined undefined undefined"
       >
         <p
-          className="text text_type_circle text_color_input letter"
+          className="text text_type_circle text_color_input undefined"
         >
           Тест
         </p>
       </div>
       <p
-        className="text text_type_input text_color_input mt-4 absolute index"
+        className="text text_type_input text_color_input mt-4 undefined undefined"
       />
       <div
-        className="text text_type_input text_color_input mt-4 absolute tail30 element"
+        className="text text_type_input text_color_input mt-4 undefined undefined undefined"
       />
     </div>
   </div>
@@ -261,23 +261,23 @@ exports[`Рендеринг круга Круг с react-элементом в t
 
 exports[`Рендеринг круга Круг с tail рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle   default"
+    className="undefined  undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 string"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   >
     tail
   </div>
@@ -286,23 +286,23 @@ exports[`Рендеринг круга Круг с tail рендерится б�
 
 exports[`Рендеринг круга Круг с пропcом isSmall ===  true рендерится без ошибок 1`] = `
 <div
-  className="content "
+  className="undefined "
 >
   <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
   />
   <div
-    className="circle  small default"
+    className="undefined undefined undefined"
   >
     <p
-      className="text text_type_circle text_color_input letter"
+      className="text text_type_circle text_color_input undefined"
     />
   </div>
   <p
-    className="text text_type_input text_color_input mt-4 absolute index"
+    className="text text_type_input text_color_input mt-4 undefined undefined"
   />
   <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
   />
 </div>
 `;

@@ -2,7 +2,7 @@
 
 exports[`Рендер кнопки Заблокированная кнопка рендерится без ошибок 1`] = `
 <button
-  className="text text_type_button text_color_primary button undefined false "
+  className="text text_type_button text_color_primary undefined undefined false "
   disabled={true}
   type="button"
 >
@@ -14,7 +14,7 @@ exports[`Рендер кнопки Заблокированная кнопка �
 
 exports[`Рендер кнопки Кнопка c текстом рендерится без ошибок 1`] = `
 <button
-  className="text text_type_button text_color_primary button undefined false "
+  className="text text_type_button text_color_primary undefined undefined false "
   type="button"
 >
   <p
@@ -27,7 +27,7 @@ exports[`Рендер кнопки Кнопка c текстом рендери�
 
 exports[`Рендер кнопки Кнопка без текста рендерится без ошибок 1`] = `
 <button
-  className="text text_type_button text_color_primary button undefined false "
+  className="text text_type_button text_color_primary undefined undefined false "
   type="button"
 >
   <p
@@ -38,14 +38,13 @@ exports[`Рендер кнопки Кнопка без текста рендер
 
 exports[`Рендер кнопки Кнопка во время загрузки рендерится без ошибок 1`] = `
 <button
-  className="text text_type_button text_color_primary button undefined loader "
+  className="text text_type_button text_color_primary undefined undefined undefined "
   disabled={true}
   type="button"
 >
   <img
     alt="Загрузка."
-    className="loader_icon"
-    src="loader.svg"
+    src="test-file-stub"
   />
 </button>
 `;

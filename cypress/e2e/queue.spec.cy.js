@@ -1,26 +1,28 @@
 describe("Очередь", () => {
   beforeEach(() => {
     cy.visit("/queue");
+    cy.contains("Добавить").as("addButton");
+    cy.contains("Удалить").as("delButton");
+    cy.contains("Очистить").as("clearButton");
+    cy.get("[class^=circle_circle]").as("circles");
+    cy.get("@circles").eq(0).as("firstCircle");
+    cy.get("@circles").eq(1).as("secondCircle");
   });
 
   it("Кнопка добавления недоступна при пустом поле", () => {
     cy.get("input").clear();
-    cy.contains("Добавить").should("be.disabled");
+    cy.get("@addButton").should("be.disabled");
   });
 
   it("Кнопки удаления и очистки недоступны при пустой очереди", () => {
     cy.get("[class^=circle_letter]").should("have.length", 0);
-    cy.contains("Удалить").should("be.disabled");
-    cy.contains("Очистить").should("be.disabled");
+    cy.get("@delButton").should("be.disabled");
+    cy.get("@clearButton").should("be.disabled");
   });
 
   it("Кнопка добавления работает корректно", () => {
     cy.get("input").type("1234");
-    cy.contains("Добавить").as("button");
-    cy.get("[class^=circle_circle]").as("circles");
-    cy.get("@circles").eq(0).as("firstCircle");
-    cy.get("@circles").eq(1).as("secondCircle");
-    cy.get("@button").then(($button) => {
+    cy.get("@addButton").then(($button) => {
       $button.click();
       cy.get("@firstCircle")
         .invoke("attr", "class")
@@ -37,13 +39,12 @@ describe("Очередь", () => {
       .invoke("text")
       .should("match", /head/)
       .and("match", /tail/);
-    cy.wait(500);
     cy.get("@firstCircle")
       .invoke("attr", "class")
       .should("match", /default/);
 
     cy.get("input").type("abcd");
-    cy.get("@button").then(($button) => {
+    cy.get("@addButton").then(($button) => {
       $button.click();
       cy.get("@secondCircle")
         .invoke("attr", "class")
@@ -57,18 +58,17 @@ describe("Очередь", () => {
       .should("match", /^abcd$/);
     cy.get("@firstCircle").parent().invoke("text").should("match", /head/);
     cy.get("@secondCircle").parent().invoke("text").should("match", /tail/);
-    cy.wait(500);
     cy.get("@secondCircle")
       .invoke("attr", "class")
       .should("match", /default/);
 
-    cy.contains("Удалить").click();
+    cy.get("@delButton").click();
     cy.wait(500);
-    cy.contains("Удалить").click();
+    cy.get("@delButton").click();
     cy.wait(500);
 
     cy.get("input").type("1234");
-    cy.get("@button").then(($button) => {
+    cy.get("@addButton").then(($button) => {
       $button.click();
       cy.get("@secondCircle")
         .invoke("attr", "class")
@@ -85,7 +85,6 @@ describe("Очередь", () => {
       .invoke("text")
       .should("match", /head/)
       .and("match", /tail/);
-    cy.wait(500);
     cy.get("@secondCircle")
       .invoke("attr", "class")
       .should("match", /default/);
@@ -93,19 +92,16 @@ describe("Очередь", () => {
 
   it("Кнопка удаления работает корректно", () => {
     cy.get("input").type("1");
-    cy.contains("Добавить").click();
+    cy.get("@addButton").click();
     cy.wait(1000);
     cy.get("input").type("2");
-    cy.contains("Добавить").click();
+    cy.get("@addButton").click();
+    cy.wait(1000);
 
-    cy.get("[class^=circle_circle]").as("circles");
-    cy.contains("Удалить").as("button");
-    cy.get("@circles").eq(0).as("firstCircle");
-    cy.get("@circles").eq(1).as("secondCircle");
     cy.get("@firstCircle").parent().invoke("text").should("match", /head/);
     cy.get("@secondCircle").parent().invoke("text").should("match", /tail/);
 
-    cy.get("@button").then(($button) => {
+    cy.get("@delButton").then(($button) => {
       $button.click();
       cy.get("@firstCircle")
         .invoke("attr", "class")
@@ -117,7 +113,7 @@ describe("Очередь", () => {
       .should("match", /default/);
     cy.get("@secondCircle").parent().invoke("text").should("match", /head/);
 
-    cy.get("@button").then(($button) => {
+    cy.get("@delButton").then(($button) => {
       $button.click();
       cy.get("@secondCircle")
         .invoke("attr", "class")
@@ -133,15 +129,15 @@ describe("Очередь", () => {
 
   it("Кнопка очистки работает корректно", () => {
     cy.get("input").type("1");
-    cy.contains("Добавить").click();
+    cy.get("@addButton").click();
     cy.wait(1000);
     cy.get("input").type("2");
-    cy.contains("Добавить").click();
+    cy.get("@addButton").click();
     cy.wait(1000);
     cy.get("input").type("3");
-    cy.contains("Добавить").click();
+    cy.get("@addButton").click();
     cy.wait(1000);
-    cy.contains("Очистить").click();
+    cy.get("@clearButton").click();
     cy.get("[class^=circle_letter]").should("have.length", 0);
   });
 });

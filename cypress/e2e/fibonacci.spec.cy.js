@@ -1,6 +1,6 @@
 describe("Фибоначчи", () => {
   beforeEach(() => {
-    cy.visit("/fibonacci");
+    cy.visit("/algososh/fibonacci");
   });
 
   it("Кнопка недоступна при пустом поле", () => {

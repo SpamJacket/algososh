@@ -1,6 +1,6 @@
 describe("Связный список", () => {
   beforeEach(() => {
-    cy.visit("/list");
+    cy.visit("/algososh/list");
     cy.contains("Добавить в head").as("headAddBtn");
     cy.contains("Добавить в tail").as("tailAddBtn");
     cy.contains("Добавить по индексу").as("indexAddBtn");

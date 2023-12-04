@@ -15,25 +15,25 @@ function App() {
     <div className={styles.app}>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/algososh/" exact>
             <MainPage />
           </Route>
-          <Route path="/recursion">
+          <Route path="/algososh/recursion">
             <StringComponent />
           </Route>
-          <Route path="/fibonacci">
+          <Route path="/algososh/fibonacci">
             <FibonacciPage />
           </Route>
-          <Route path="/sorting">
+          <Route path="/algososh/sorting">
             <SortingPage />
           </Route>
-          <Route path="/stack">
+          <Route path="/algososh/stack">
             <StackPage />
           </Route>
-          <Route path="/queue">
+          <Route path="/algososh/queue">
             <QueuePage />
           </Route>
-          <Route path="/list">
+          <Route path="/algososh/list">
             <ListPage />
           </Route>
         </Switch>

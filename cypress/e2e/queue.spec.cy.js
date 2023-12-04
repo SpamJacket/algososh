@@ -1,6 +1,6 @@
 describe("Очередь", () => {
   beforeEach(() => {
-    cy.visit("/queue");
+    cy.visit("/algososh/queue");
     cy.contains("Добавить").as("addButton");
     cy.contains("Удалить").as("delButton");
     cy.contains("Очистить").as("clearButton");

@@ -1,0 +1,308 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Рендеринг круга Круг c буквами рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      Тест
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг без букв рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг в состоянии changing рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг в состоянии default рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг в состоянии modified рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг с head рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  >
+    head
+  </div>
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг с index рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  >
+    0
+  </p>
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг с react-элементом в head рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  >
+    <div
+      className="undefined "
+    >
+      <div
+        className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+      />
+      <div
+        className="undefined undefined undefined"
+      >
+        <p
+          className="text text_type_circle text_color_input undefined"
+        >
+          Тест
+        </p>
+      </div>
+      <p
+        className="text text_type_input text_color_input mt-4 undefined undefined"
+      />
+      <div
+        className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+      />
+    </div>
+  </div>
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Рендеринг круга Круг с react-элементом в tai рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  >
+    <div
+      className="undefined "
+    >
+      <div
+        className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+      />
+      <div
+        className="undefined undefined undefined"
+      >
+        <p
+          className="text text_type_circle text_color_input undefined"
+        >
+          Тест
+        </p>
+      </div>
+      <p
+        className="text text_type_input text_color_input mt-4 undefined undefined"
+      />
+      <div
+        className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Рендеринг круга Круг с tail рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  >
+    tail
+  </div>
+</div>
+`;
+
+exports[`Рендеринг круга Круг с пропcом isSmall ===  true рендерится без ошибок 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined undefined undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
